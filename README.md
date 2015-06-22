@@ -1,1 +1,1 @@
-# algorithms1
+# Algorithms, Part I (courseera.org)
