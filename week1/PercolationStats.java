@@ -39,13 +39,13 @@ public class PercolationStats
     
     private double[] getThresholds()
     {
-        double[] thresholds = new double[T];
+        double[] out = new double[T];
     
         for (int i = 0; i < T; i++) {
-            thresholds[i] = threshold();
+            out[i] = threshold();
         }
         
-        return thresholds;
+        return out;
     }
     
     public double mean()                      // sample mean of percolation threshold
