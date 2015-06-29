@@ -10,9 +10,9 @@ public class Percolation
     private int top = 0;
     private int bottom = 0;
 
-    public Percolation(int N)               // create N-by-N grid, with all sites blocked
+    public Percolation(int N)           // create N-by-N grid, with all sites blocked
     {
-        if ( N <= 0 ) {
+        if (N <= 0) {
             throw new java.lang.IllegalArgumentException();
         }
     
@@ -28,18 +28,16 @@ public class Percolation
     
     private int translate(int i, int j)
     {
-        int index =  sideLength * (i - 1) + j - 1;
-                
-        if ( index < 0 || index >= total ) {
+        if (i <= 0 || i > sideLength || j <= 0 || j > sideLength) {
             throw new java.lang.IndexOutOfBoundsException();
         }
-        
-        return index;
+    
+        return sideLength * (i - 1) + j - 1;
     }
     
-    private void unionIfOpened(int index, int q) 
+    private void unionIfOpened(int index, int q)
     {
-        if ( !opened[q] ) {
+        if (!opened[q]) {
             return;
         }
     
@@ -48,38 +46,30 @@ public class Percolation
     
     public void open(int i, int j)          // open site (row i, column j) if it is not open already
     {
-        if ( isOpen(i, j) ) {
+        if (isOpen(i, j)) {
             return;
         }
     
         int index = translate(i, j);
         opened[index] = true;
         
-        if (j != sideLength)
-        {
+        if (j != sideLength) {
             unionIfOpened(index, translate(i, j + 1));
         }
         
-        if (j != 1)
-        {
+        if (j != 1) {
             unionIfOpened(index, translate(i, j - 1));
         }
         
-        if (i != sideLength) 
-        {
+        if (i != sideLength) {
             unionIfOpened(index, translate(i + 1, j));   
-        }
-        else
-        {
+        } else {
             uf.union(index, bottom);
         }
         
-        if (i != 1) 
-        {
+        if (i != 1) {
             unionIfOpened(index, translate(i - 1, j));
-        }
-        else
-        {
+        } else {
             uf.union(index, top);
         }
     }
